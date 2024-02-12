@@ -92,6 +92,9 @@ function novaficha(){
 function botaoHome() {
     window.location.href = "inicial.html";
 }
+function irParaHome(){
+    window.location.href = "inicial.html";
+}
 function cadastraranimal(){
     window.location.href = "index.html";
 }

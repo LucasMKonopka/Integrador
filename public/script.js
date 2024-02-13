@@ -173,12 +173,24 @@ function RedefinirSenha(){
 //TELA DE CADASTRO - REQUISIÇÕES
 
 // Adicione um evento de envio do formulário
-document.getElementById('register-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Previne o envio padrão do formulário
+//document.getElementById('register-form').addEventListener('submit', function(event) {
+    //event.preventDefault(); // Previne o envio padrão do formulário
     
     // Chama a função de validação do formulário
-    validateForm();
-});
+    //validateForm();
+//});
+
+var registerForm = document.getElementById('register-form');
+if (registerForm) {
+    registerForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Previne o envio padrão do formulário
+        
+        // Chama a função de validação do formulário
+        validateForm();
+    });
+} else {
+    console.error("Elemento 'register-form' não encontrado.");
+}
 
 function validateForm() {
     var password = document.getElementById("password").value;

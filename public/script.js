@@ -59,24 +59,7 @@ function login() {
 
 
 
-/*// Verificação de estado de autenticação
-firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-        // O usuário está autenticado
-        console.log("Usuário autenticado:", user);
-        window.location.href = "./inicial.html"; // Redireciona para a página inicial
-    } else {
-        // O usuário não está autenticado
-        console.log("Usuário não autenticado");
-    }
-});
 
-
-/*firebase.auth().onAuthStateChanged(user => {
-    if (user!= undefined) {
-        window.location.href = "inicial.html";
-    }
-})*/
 
 function Sair() {
     
@@ -91,14 +74,7 @@ function Sair() {
         });
 }
 
-/*import { getAuth, signOut } from "firebase/auth";
 
-const auth = getAuth();
-signOut(auth).then(() => {
-  // Sign-out successful.
-}).catch((error) => {
-  // An error happened.
-}); */
 
 
 /* TESTE  */
@@ -140,44 +116,8 @@ function salvarAnimal() {
       document.getElementById('mensagemCadastro').textContent = "Erro ao cadastrar animal. Por favor, tente novamente.";
     });
 }
-/* FIM TESTE */
-/*
-function salvarAnimal() {
-    // Obtenha os valores dos campos do formulário
-    var nome = document.getElementById('nome').value;
-    var especie = document.getElementById('especie').value;
-    var idade = document.getElementById('idade').value;
-    var raca = document.getElementById('raça').value;
-    var porte = document.getElementById('porte').value;
-    var datanasc = document.getElementById('datanasc').value;
-    var sexo = document.getElementById('sexo').value;
 
-    // Valide os campos (adapte conforme necessário)
-    if (nome === '' || especie === '' || idade === '' || raca === '' || porte === '' || datanasc === '' || sexo === '') {
-        alert('Por favor, preencha todos os campos.');
-        return;
-    }
-    
 
-    // Crie um objeto animal com os dados
-    var animal = {
-        nome: nome,
-        especie: especie,
-        idade: idade,
-        raca: raca,
-        porte: porte,
-        datanasc: datanasc,
-        sexo: sexo
-    };
-
-    console.log('Animal cadastrado: ', animal);
-    listaAnimais.push(animal);
-
-    limparFormulario();
-
-    window.location.href = "inicial.html";
-}
-*/
 // Função para pesquisar animais
 function pesquisarAnimal() {
     var termoPesquisa = document.getElementById('pesquisaAnimal').value.toLowerCase();
@@ -296,15 +236,7 @@ function RedefinirSenha(){
         });
 }
 
-//TELA DE CADASTRO - REQUISIÇÕES
 
-// Adicione um evento de envio do formulário
-//document.getElementById('register-form').addEventListener('submit', function(event) {
-    //event.preventDefault(); // Previne o envio padrão do formulário
-    
-    // Chama a função de validação do formulário
-    //validateForm();
-//});
 
 var registerForm = document.getElementById('register-form');
 if (registerForm) {

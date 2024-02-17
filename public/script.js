@@ -88,34 +88,54 @@ const formCadastroAnimal = document.getElementById('formCadastroAnimal');
 
 
 function salvarAnimal() {
-  // Gather form data
-  const animalData = {
-    nome: formCadastroAnimal.nome.value,
-    datanasc: formCadastroAnimal.datanasc.value,
-    especie: formCadastroAnimal.especie.value,
-    idade: formCadastroAnimal.idade.value,
-    sexo: formCadastroAnimal.sexo.value,
-    raca: formCadastroAnimal.raça.value,
-    porte: formCadastroAnimal.porte.value,
-    observacoes: formCadastroAnimal.observacoes.value,
-    userId: firebase.auth().currentUser.uid // Include the current user's ID
-  };
-
-  // Add the data to Firestore
-  db.collection('animais').add(animalData)
-    .then(function(docRef) {
-      console.log("Animal cadastrado com ID: ", docRef.id);
-      // Clear form
-      formCadastroAnimal.reset();
-      // Display success message
-      document.getElementById('mensagemCadastro').textContent = "Animal cadastrado com sucesso!";
-    })
-    .catch(function(error) {
-      console.error("Erro ao cadastrar animal: ", error);
-      // Display error message
-      document.getElementById('mensagemCadastro').textContent = "Erro ao cadastrar animal. Por favor, tente novamente.";
-    });
-}
+    // Gather form data
+    const nome = formCadastroAnimal.nome.value.trim();
+    const datanasc = formCadastroAnimal.datanasc.value.trim();
+    const especie = formCadastroAnimal.especie.value.trim();
+    const idade = formCadastroAnimal.idade.value.trim();
+    const sexo = formCadastroAnimal.sexo.value.trim();
+    const raca = formCadastroAnimal.raça.value.trim();
+    const porte = formCadastroAnimal.porte.value.trim();
+    const observacoes = formCadastroAnimal.observacoes.value.trim();
+  
+    // Check if any field is empty
+    if (!nome || !datanasc || !especie || !idade || !sexo || !raca || !porte || !observacoes) {
+      alert("Por favor, preencha todos os campos.");
+      return;
+    }
+  
+    // Add the data to Firestore
+    const animalData = {
+      nome: nome,
+      datanasc: datanasc,
+      especie: especie,
+      idade: idade,
+      sexo: sexo,
+      raca: raca,
+      porte: porte,
+      observacoes: observacoes,
+      userId: firebase.auth().currentUser.uid // Include the current user's ID
+    };
+  
+    db.collection('animais').add(animalData)
+      .then(function(docRef) {
+        console.log("Animal cadastrado com ID: ", docRef.id);
+        // Clear form
+        formCadastroAnimal.reset();
+        // Display success message
+        document.getElementById('mensagemCadastro').textContent = "Animal cadastrado com sucesso!";
+        // Redirect to initial page
+        setTimeout(() => {
+          window.location.href = "inicial.html";
+        }, 1000); // Redirect after 1 second
+      })
+      .catch(function(error) {
+        console.error("Erro ao cadastrar animal: ", error);
+        // Display error message
+        document.getElementById('mensagemCadastro').textContent = "Erro ao cadastrar animal. Por favor, tente novamente.";
+      });
+  }
+  
 
 
 // Função para pesquisar animais

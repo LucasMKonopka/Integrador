@@ -1,4 +1,3 @@
-
 const firebaseConfig = {
     apiKey: "AIzaSyBPlhIlvJV45Q0MYEPeD39w7Yfumor2aas",
     authDomain: "integrador-34f24.firebaseapp.com",
@@ -173,7 +172,7 @@ function limparFormulario() {
     document.getElementById('datanasc').value = '';
     document.getElementById('sexo').value = '';
 }
-
+/*
 // Função para pesquisar animais
 function pesquisarAnimal() {
     var termoPesquisa = document.getElementById('pesquisaAnimal').value.toLowerCase();
@@ -186,7 +185,7 @@ function pesquisarAnimal() {
     // Exiba a lista de animais filtrados no console
     console.log(animaisFiltrados);
 }
-
+*/
 
     
 
@@ -210,9 +209,102 @@ function cancelarCadastro() {
         window.location.href = "inicial.html";
     } 
 }
-function salvarFicha(){
-    window.location.href = "inicial.html";
+/* ----------------------------------------------------------------------------------------------------------------- */
+document.addEventListener('DOMContentLoaded', function() {
+    // Verificar se o usuário já está autenticado
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            console.log("Usuário já autenticado:", user);
+            // Se o usuário já estiver autenticado, redirecione-o para a página inicial
+            if(window.location.href.includes('login.html')){
+                window.location.href = "./inicial.html";
+            }
+            // Verifica se a página atual possui o campo de seleção de animais
+            if (window.location.href.includes('novaficha.html')) {
+                carregarAnimais(); // Chama a função para carregar os animais apenas se estiver na página 'novaficha.html'
+            }
+        } else {
+            console.log("Usuário não autenticado.");
+        }
+    });
+});
+// Preenche dinamicamente o campo de seleção com os animais disponíveis
+function carregarAnimais() {
+    const selectAnimal = document.getElementById('animal');
+    
+    if(!selectAnimal){
+        console.error("Elemento 'animal' não encontrado na página. Esta pagina não requer o carregamento de animais.");
+        return;
+    }
+    // Limpa quaisquer opções existentes
+    selectAnimal.innerHTML = "";
+
+    // Adiciona uma opção em branco
+    const optionEmBranco = document.createElement('option');
+    optionEmBranco.value = "";
+    optionEmBranco.textContent = "Selecione um animal";
+    selectAnimal.appendChild(optionEmBranco);
+
+    // Busca os animais na coleção 'animais' pertencentes ao usuário atualmente autenticado
+    const userId = firebase.auth().currentUser.uid;
+    db.collection('animais').where('userId', '==', userId).get()
+        .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+                // Adiciona cada animal como uma opção no campo de seleção
+                const optionAnimal = document.createElement('option');
+                optionAnimal.value = doc.id; // Use o ID do documento como valor
+                optionAnimal.textContent = doc.data().nome; // Nome do animal
+                selectAnimal.appendChild(optionAnimal);
+            });
+        })
+        .catch(error => {
+            console.error("Erro ao carregar animais:", error);
+        });
 }
+
+// Chama a função para carregar os animais quando a página é carregada
+
+
+/*----------------------------------------------------------------------------------------------------------------------- */
+
+function salvarFicha() {
+    const animalId = document.getElementById('animal').value;
+    const nomeVeterinario = document.getElementById('nomeveterinario').value;
+    const dataAtendimento = document.getElementById('dataAtendimento').value;
+    const procedimento = document.getElementById('atendimento').value;
+
+    // Verificar se todos os campos estão preenchidos
+    if (!animalId || !nomeVeterinario || !dataAtendimento || !procedimento) {
+        alert("Por favor, preencha todos os campos.");
+        return;
+    }
+
+    const fichaAtendimentoData = {
+        animalId: animalId,
+        nomeVeterinario: nomeVeterinario,
+        dataAtendimento: dataAtendimento,
+        procedimento: procedimento
+    };
+
+    // Salvar a ficha de atendimento
+    db.collection('fichas').add(fichaAtendimentoData)
+        .then(function(docRef) {
+            console.log("Ficha de atendimento cadastrada com ID: ", docRef.id);
+            // Limpar formulário
+            document.getElementById('formNovaFicha').reset();
+            // Exibir mensagem de sucesso
+            var mensagemFicha = document.getElementById('mensagemFicha');
+            if (mensagemFicha) {
+                mensagemFicha.textContent = "Ficha de atendimento cadastrada com sucesso!";
+            }
+            // Redirecionar para a página inicial após 1 segundo
+            setTimeout(() => {
+                window.location.href = "inicial.html";
+            }, 1000);
+        })
+}
+  
+
 function cancelarFicha() {
     var confirmacao = confirm("Tem certeza que deseja cancelar a criação da nova ficha? Ao excluir a ficha, todas as pendências relacionadas a ela serão excluídas e não será possível desfazer o processo.");
 
@@ -311,7 +403,4 @@ function getErrorMessage(error) {
     }
     return error.message;
 }
-
-
-
 

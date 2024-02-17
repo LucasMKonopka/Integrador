@@ -124,7 +124,12 @@ button#salvar {
     box-sizing: border-box;
     margin-bottom: 10px;
 }
-
+#animal {
+    width: 100%;
+    padding: 10px; /* Ajuste o padding conforme necessário */
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
 
 button#novaFicha{
     font-size: 20px;
@@ -323,4 +328,54 @@ button#chat{
     #links-rodape {
         margin-top: 10px;
     }
+}
+
+
+
+
+#buscar-ficha input[type="text"] {
+    width: 400px; /* Ajusta a largura da barra de pesquisa */
+}
+
+#buscarFichas {
+    list-style: none;
+    display: flex;
+    margin-right: 200px;
+    margin-bottom: 20px; /* Adiciona espaço abaixo da lista de animais */
+}
+
+#buscarFichas li {
+    margin-right: 80px;
+}
+
+#buscarFichas li strong {
+    font-size: 20px; /* Tamanho do título */
+    font-weight: bold; /* Negrito */
+    font-family: "Roboto";
+    color: rgba(1, 1, 1, 1);
+    margin-bottom: 10px; /* Adiciona espaço abaixo do título */
+    padding: 10px;
+}
+
+#listaAnimais button {
+    width: 500px; /* Ajusta a largura dos botões */
+    font-size: 18px; /* Ajusta o tamanho do texto dos botões */
+    margin-bottom: 10px; /* Adiciona espaço entre os botões */
+    
+}
+
+#listaAnimais button span {
+    margin-right: 20px; /* Adiciona espaço entre as informações */
+}
+
+#tituloAnimais {
+    display: flex;
+    justify-content: space-between;
+    width: 500px; /* Define a largura total */
+}
+
+#tituloAnimais strong {
+    flex: 1; /* Distribui o espaço igualmente entre os títulos */
+    text-align: center; /* Centraliza o texto */
+    font-weight: bold;
 }

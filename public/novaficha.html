@@ -36,21 +36,22 @@
             <form id="formNovaFicha">
 
                 <label for="nomeveterinario">Nome do Veterinário:</label>
-                <input type="text" id="nomeveterinario" oninput = "nomeveterinario()" required>
-
-                <label for="pesquisaAnimal">Selecione o Animal:</label>
-                <input type="text" id="pesquisaAnimal" oninput = "pesquisarAnimal()" required>
-
-                <label for="datanasc">Data do atendimento:</label>
-                <input type="date" id="dataAtendimento" name="dataAtendimento" required>
-
-                <label for="atendimento">Atendimento: </label>
-                <textarea id="atendimento" name="atendimento" rows="4"></textarea>
-
+                <input type="text" id="nomeveterinario" required>
+            
+                <label for="animal">Selecione o Animal:</label>
+                <select id="animal" required></select>
+                    <!-- Opções preenchidas dinamicamente com os animais cadastrados -->
+                </select>
+            
+                <label for="dataAtendimento">Data do atendimento:</label>
+                <input type="date" id="dataAtendimento" required>
+            
+                <label for="atendimento">Atendimento:</label>
+                <textarea id="atendimento" rows="4" required></textarea>
+            
                 <div>
                     <button type="button" id="cancelar" onclick="cancelarFicha()">Cancelar</button>
                     <button type="button" id="salvar" onclick="salvarFicha()">Salvar</button>
-                    
                 </div>
                 <br><br>
             </form>
@@ -102,6 +103,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
     <script src="script.js"></script>
+    
     
 </body>
 </html>

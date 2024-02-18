@@ -333,49 +333,39 @@ button#chat{
 
 
 
-#buscar-ficha input[type="text"] {
-    width: 400px; /* Ajusta a largura da barra de pesquisa */
+
+
+/* Estiliza o campo de seleção para se parecer com uma barra de pesquisa */
+#selectAnimalBuscar {
+    -webkit-appearance: none; /* Remove a aparência padrão do campo de seleção no Chrome e Safari */
+    -moz-appearance: none; /* Remove a aparência padrão do campo de seleção no Firefox */
+    appearance: none;
+    background-color: white; /* Cor de fundo */
+    border: 1px solid #ccc; /* Borda */
+    padding: 8px; /* Espaçamento interno */
+    font-size: 16px; /* Tamanho da fonte */
+    width: 80%; /* Largura */
 }
 
-#buscarFichas {
-    list-style: none;
-    display: flex;
-    margin-right: 200px;
-    margin-bottom: 20px; /* Adiciona espaço abaixo da lista de animais */
+/* Adiciona uma seta personalizada para o campo de seleção */
+#selectAnimalBuscar::after {
+    content: '\25BC'; /* Código Unicode para uma seta para baixo */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none; /* Impede que a seta seja clicada */
 }
 
-#buscarFichas li {
-    margin-right: 80px;
+#btnBuscarFichas{
+    height: 60px; /* Ajuste conforme necessário para corresponder à altura da barra de seleção de animais */
+    margin-top: 8px; /* Ajuste o espaçamento superior conforme necessário */
+    margin-left: 10px;
 }
 
-#buscarFichas li strong {
-    font-size: 20px; /* Tamanho do título */
-    font-weight: bold; /* Negrito */
-    font-family: "Roboto";
-    color: rgba(1, 1, 1, 1);
-    margin-bottom: 10px; /* Adiciona espaço abaixo do título */
-    padding: 10px;
+#fichasDeAtendimento li {
+    font-size: 18px; /* Ajuste conforme desejado */
+    line-height: 1.5; /* Adiciona espaçamento entre as linhas */
+    margin-bottom: 20px; /* Adiciona espaçamento inferior entre as mensagens das fichas */
 }
 
-#listaAnimais button {
-    width: 500px; /* Ajusta a largura dos botões */
-    font-size: 18px; /* Ajusta o tamanho do texto dos botões */
-    margin-bottom: 10px; /* Adiciona espaço entre os botões */
-    
-}
-
-#listaAnimais button span {
-    margin-right: 20px; /* Adiciona espaço entre as informações */
-}
-
-#tituloAnimais {
-    display: flex;
-    justify-content: space-between;
-    width: 500px; /* Define a largura total */
-}
-
-#tituloAnimais strong {
-    flex: 1; /* Distribui o espaço igualmente entre os títulos */
-    text-align: center; /* Centraliza o texto */
-    font-weight: bold;
-}

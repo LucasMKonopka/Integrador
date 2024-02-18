@@ -27,35 +27,27 @@
 <!-- exemplo -->
     <main>
         <div id="container-principal">
-                <div id = "buscarficha">
-                    <h2><strong>Buscar Ficha</strong></h2>
-                </div>
-            
+            <div id="buscarficha">
+                <h2><strong>Buscar Ficha</strong></h2>
+            </div>
 
-            <!-- Formulário de Cadastro de Animais -->
+            <!-- Formulário de Busca de Fichas -->
             <form id="formBuscarFicha">
-
                 <div id="buscar-ficha">
-                    <input type="text" id="procurarAnimal" placeholder="Pesquisar por nome">
-                    <button type="button" onclick="procurarAnimal()">Pesquisar</button>
+                    <!-- Remova este elemento, pois não é mais necessário -->
+                    <!-- <input type="text" id="inputBuscarAnimal" placeholder="Digite o nome do animal"> -->
+                    <select id="selectAnimalBuscar">
+                        <!-- Opções de animais serão preenchidas dinamicamente pelo JavaScript -->
+                    </select>
+                    <button type="button" id="btnBuscarFichas" onclick="buscarFichasDoAnimal()">Buscar Fichas</button>
                 </div>
-
-                <ul id="buscarFichas">
-                    <li><strong>Nome</strong></li>
-                    <li><strong>Raça</strong></li>
-                    <li><strong>Espécie</strong></li>
-                    <li><strong>Idade</strong></li>
+                <ul id="fichasDeAtendimento">
+                    <!-- Fichas de atendimento serão preenchidas dinamicamente pelo JavaScript -->
                 </ul>
-                
-
-                
-                <br><br>
             </form>
 
-            <!-- Mensagem de Cadastro (pode ser um alert ou uma div na página) -->
-            <div id="mensagemCadastro"></div>
-
-
+            <!-- Mensagem de Busca de Fichas (opcional) -->
+            <div id="mensagemBuscarFichas"></div>
         </div>
     </main>
 
@@ -98,6 +90,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/2.25.0/index.min.js"></script>
     <script src="script.js"></script>
     
 </body>

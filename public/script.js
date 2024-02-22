@@ -656,6 +656,7 @@ function carregarAnimaisSelecionar() {
                 .then(doc => {
                     if (doc.exists) {
                         const data = doc.data();
+                        document.getElementById('novoNome').value = data.nome || '';
                         document.getElementById('datanasc').value = data.datanasc || '';
                         document.getElementById('especie').value = data.especie || '';
                         document.getElementById('idade').value = data.idade || '';
@@ -672,6 +673,7 @@ function carregarAnimaisSelecionar() {
                 });
         } else {
             // Se nenhum animal foi selecionado, limpa os campos
+            document.getElementById('nome').value = '';
             document.getElementById('datanasc').value = '';
             document.getElementById('especie').value = '';
             document.getElementById('idade').value = '';
@@ -750,26 +752,31 @@ function salvarEdicao() {
         return;
     }
 
+    const novoNome = document.getElementById('novoNome').value; // Novo campo para o nome do animal
+
     const datanasc = document.getElementById('datanasc').value;
     const especie = document.getElementById('especie').value;
     const idade = document.getElementById('idade').value;
     const sexo = document.getElementById('sexo').value;
-    const raca = document.getElementById('raca').value; // Certifique-se de que o ID está correto
+    const raca = document.getElementById('raca').value;
     const porte = document.getElementById('porte').value;
     const observacoes = document.getElementById('observacoes').value;
 
-    // Atualizar os dados do animal no banco de dados
+    // Atualizar os dados do animal no banco de dados, incluindo o novo nome
     db.collection('animais').doc(animalId).update({
+        nome: novoNome, // Atualizando o nome do animal
         datanasc: datanasc,
         especie: especie,
         idade: idade,
         sexo: sexo,
-        raca: raca, // Certifique-se de que o nome do campo está correto
+        raca: raca,
         porte: porte,
         observacoes: observacoes
     })
     .then(() => {
         alert("Alterações salvas com sucesso.");
+        // Limpar os campos após salvar as alterações
+        limparCampos();
         // Atualizar o campo de seleção após salvar as alterações
         carregarAnimaisSelecionar();
     })
@@ -777,10 +784,10 @@ function salvarEdicao() {
         console.error("Erro ao salvar as alterações:", error);
         alert("Erro ao salvar as alterações. Por favor, tente novamente mais tarde.");
     });
-    limparCampos();
 }
 function limparCampos() {
     document.getElementById('nomeSelecionar').value = '';
+    document.getElementById('novoNome').value = '';
     document.getElementById('datanasc').value = '';
     document.getElementById('especie').value = '';
     document.getElementById('idade').value = '';

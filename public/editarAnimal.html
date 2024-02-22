@@ -34,10 +34,11 @@
 
             <!-- Formulário de Cadastro de Animais -->
             <form id="formCadastroAnimal">
+                <label for="selecioneAnimal">Selecione o Animal:</label>
+                <select id="nomeSelecionar" required></select>
+                
                 <label for="nome">Nome:</label>
-                <select id="nomeSelecionar" required>
-
-                </select>
+                <input type="text" id="novoNome" name="novoNome" required>
 
                 <label for="datanasc">Data de nascimento:</label>
                 <input type="date" id="datanasc" name="datanasc" required>

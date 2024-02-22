@@ -418,3 +418,48 @@ button#chat{
     }
 }
 
+
+
+/* Estilo para o botão Salvar */
+button{
+    padding: 10px;
+    margin-right: 10px;
+    margin: 10px 0;
+}
+button#cancelarAlteracoes{
+    width: 129px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: 1px solid #000;
+    background: #D8686F;
+    color: black;
+}
+button#excluirAnimal{
+    width: 129px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: 1px solid #000;
+    background: #D8686F;
+    color: black;
+}
+button#salvarAlteracoes {
+    width: 129px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: 1px solid #000;
+    background: #68D8B0;
+    color: black;
+}
+/* Estilos para o campo de seleção de animais */
+#nomeSelecionar {
+    width: 100%; /* Defina a largura para 100% para ocupar todo o espaço disponível */
+    padding: 8px; /* Ajuste o padding conforme necessário */
+    font-size: 16px; /* Ajuste o tamanho da fonte conforme necessário */
+    box-sizing: border-box; /* Adicione uma borda para ficar consistente com os inputs */
+    border-radius: 5px; /* Adicione borda arredondada */
+    box-sizing: border-box; /* Inclua o padding e a borda na largura total */
+    margin-bottom: 10px; /* Adicione margem inferior para separação dos elementos */
+}

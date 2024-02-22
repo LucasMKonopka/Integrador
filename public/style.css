@@ -369,3 +369,38 @@ button#chat{
     margin-bottom: 20px; /* Adiciona espaçamento inferior entre as mensagens das fichas */
 }
 
+#tabela-fichas {
+    width: 80%;
+    margin: 20px auto;
+}
+
+#fichasDeAtendimento {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#fichasDeAtendimento th,
+#fichasDeAtendimento td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+#fichasDeAtendimento th {
+    background-color: #f2f2f2;
+}
+
+#fichasDeAtendimento tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#fichasDeAtendimento tbody tr:hover {
+    background-color: #ddd;
+}
+
+/* Estilizando para telas pequenas (responsividade) */
+@media (max-width: 600px) {
+    #tabela-fichas {
+        width: 100%;
+    }
+}

@@ -25,31 +25,36 @@
         </div>
     </header>
 <!-- exemplo -->
-    <main>
-        <div id="container-principal">
-            <div id="buscarficha">
-                <h2><strong>Buscar Ficha</strong></h2>
-            </div>
-
-            <!-- Formulário de Busca de Fichas -->
-            <form id="formBuscarFicha">
-                <div id="buscar-ficha">
-                    <!-- Remova este elemento, pois não é mais necessário -->
-                    <!-- <input type="text" id="inputBuscarAnimal" placeholder="Digite o nome do animal"> -->
-                    <select id="selectAnimalBuscar">
-                        <!-- Opções de animais serão preenchidas dinamicamente pelo JavaScript -->
-                    </select>
-                    <button type="button" id="btnBuscarFichas" onclick="buscarFichasDoAnimal()">Buscar Fichas</button>
-                </div>
-                <ul id="fichasDeAtendimento">
-                    <!-- Fichas de atendimento serão preenchidas dinamicamente pelo JavaScript -->
-                </ul>
-            </form>
-
-            <!-- Mensagem de Busca de Fichas (opcional) -->
-            <div id="mensagemBuscarFichas"></div>
+<main>
+    <div id="container-principal">
+        <div id="buscarficha">
+            <h2><strong>Buscar Ficha</strong></h2>
         </div>
-    </main>
+
+        <!-- Formulário de Busca de Fichas -->
+        <form id="formBuscarFicha">
+            <div id="buscar-ficha">
+                <select id="selectAnimalBuscar">
+                    <!-- Opções de animais serão preenchidas dinamicamente pelo JavaScript -->
+                </select>
+                <button type="button" id="btnBuscarFichas" onclick="buscarFichasDoAnimal()">Buscar Fichas</button>
+            </div>
+        </form>
+
+        <!-- Tabela para exibir as fichas de atendimento -->
+        <div id="tabela-fichas">
+            <table id="fichasDeAtendimento">
+                
+                <tbody>
+                    <!-- Fichas de atendimento serão preenchidas dinamicamente pelo JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Mensagem de Busca de Fichas (opcional) -->
+        <div id="mensagemBuscarFichas"></div>
+    </div>
+</main>
 
 
     <footer>

@@ -535,7 +535,6 @@ function carregarAnimaisBuscar() {
         });
 }
 // Função para buscar fichas de atendimento para o animal selecionado
-// Função para buscar fichas de atendimento para o animal selecionado
 function buscarFichasDoAnimal() {
     // Obtém o ID do animal selecionado
     const animalId = document.getElementById('selectAnimalBuscar').value;
@@ -557,18 +556,26 @@ function buscarFichasDoAnimal() {
         .then(querySnapshot => {
             if (querySnapshot.empty) {
                 // Se não houver fichas de atendimento para o animal selecionado, exibe uma mensagem
-                const noFichasMessage = document.createElement('li');
-                noFichasMessage.textContent = "Nenhuma ficha de atendimento encontrada para este animal.";
+                const noFichasMessage = document.createElement('tr');
+                const noFichasDataCell = document.createElement('td');
+                noFichasDataCell.colSpan = 4; // Colspan para ocupar todas as colunas
+                noFichasDataCell.textContent = "Nenhuma ficha de atendimento encontrada para este animal.";
+                noFichasMessage.appendChild(noFichasDataCell);
                 fichasDeAtendimentoList.appendChild(noFichasMessage);
             } else {
-                // Para cada ficha de atendimento encontrada, exibe a data e o que foi feito
-                querySnapshot.forEach(doc => {
+                // Para cada ficha de atendimento encontrada, exibe a data, o nome do animal, veterinário e procedimento
+                querySnapshot.forEach(async doc => {
                     const ficha = doc.data();
-                    const listItem = document.createElement('li');
-                    
-                    // Ajuste os nomes dos campos conforme a estrutura dos seus documentos na coleção 'fichas'
-                    listItem.textContent = `Data: ${ficha.dataAtendimento}, Atendimento: ${ficha.procedimento}`;
-                    fichasDeAtendimentoList.appendChild(listItem);
+                    // Obter o nome do animal associado ao ID do animal na ficha de atendimento
+                    const nomeAnimal = await obterNomeAnimal(ficha.animalId);
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <td>${ficha.dataAtendimento}</td>
+                        <td>${nomeAnimal}</td>
+                        <td>${ficha.nomeVeterinario}</td>
+                        <td>${ficha.procedimento}</td>
+                    `;
+                    fichasDeAtendimentoList.appendChild(newRow);
                 });
             }
         })
@@ -576,10 +583,19 @@ function buscarFichasDoAnimal() {
             console.error("Erro ao buscar fichas de atendimento:", error);
         });
 }
-// Chama a função para carregar os animais quando a página é carregada
 
-
-/*----------------------------------------------------------------------------------------------------------------------- */
-
-
-  
+// Função para obter o nome do animal associado ao ID do animal
+async function obterNomeAnimal(animalId) {
+    try {
+        const animalDoc = await db.collection('animais').doc(animalId).get();
+        if (animalDoc.exists) {
+            return animalDoc.data().nome;
+        } else {
+            console.error("Documento do animal não encontrado.");
+            return "Animal não encontrado";
+        }
+    } catch (error) {
+        console.error("Erro ao obter nome do animal:", error);
+        return "Erro ao obter nome do animal";
+    }
+}

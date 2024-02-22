@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicial</title>
+    <title>Cadastre o Animal</title>
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css">
 
@@ -18,33 +18,61 @@
             <div id="img-logo">
                 <img src="./imagem/Logo.png" alt="">
             </div>
-            
 
             <div id="titulo-cabecario">
                 <h1><strong>Vet-tech</strong></h1>
             </div>
-
-            <div id="sair-button">
-                <button type="button" id="Sair" onclick="Sair()">Sair</button>
-            </div>
         </div>
     </header>
-
+<!-- exemplo -->
     <main>
         <div id="container-principal">
+                <div id = "CadastrodeAnimais">
+                    <h2><strong>Edite o Animal</strong></h2>
+                </div>
+            
+
+            <!-- Formulário de Cadastro de Animais -->
+            <form id="formCadastroAnimal">
+                <label for="nome">Nome:</label>
+                <select id="nomeSelecionar" required>
+
+                </select>
+
+                <label for="datanasc">Data de nascimento:</label>
+                <input type="date" id="datanasc" name="datanasc" required>
+
+                <label for="especie">Espécie:</label>
+                <input type="text" id="especie" name="especie" required>
+
+                <label for="idade">Idade:</label>
+                <input type="number" id="idade" name="idade" required>
+
+                <label for="sexo">Sexo:</label>
+                <input type="text" id="sexo" name="sexo" required>
+
+                <label for="raça">Raça:</label>
+                <input type="text" id="raca" name="raca" required>
+
+                <label for="porte">Porte:</label>
+                <input type="text" id="porte" name="porte" required>
+
+                <label for="observacoes">Observações:</label>
+                <textarea id="observacoes" name="observacoes" rows="4"></textarea>
+
+                <div>
+                    <button type="button" id="cancelarAlteracoes" onclick="cancelarEdicao()">Cancelar</button>
+                    <button type="button" id="excluirAnimal" onclick="apagarAnimal()">Excluir</button>
+                    <button type="button" id="salvarAlteracoes" onclick="salvarEdicao()">Salvar</button>
+                    
+                    
+                </div>
                 <br><br>
-                <div>
-                    <button type="button" id="novaFicha" onclick="novaficha()">Nova Ficha</button>
-                </div>
-                <div>
-                    <button type="button" id="cadastrarAnimal" onclick="cadastraranimal()">Cadastrar Animal</button>
-                </div>
-                <div>
-                    <button type="button" id="editarAnimal" onclick="editaranimal()">Editar Animal</button>
-                </div>
-                <div>
-                    <button type="button" id="buscarFicha" onclick="buscarficha()">Buscar ficha</button>  
-                </div>
+            </form>
+
+            <!-- Mensagem de Cadastro (pode ser um alert ou uma div na página) -->
+            <div id="mensagemCadastro"></div>
+
 
         </div>
     </main>
@@ -80,13 +108,14 @@
 
         </div>
     </footer>
-    
+
     <form id="register-form">
         <!-- Seus campos de formulário aqui -->
      </form>
-    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
+     
+     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
     <script src="script.js"></script>
     
 </body>

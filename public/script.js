@@ -599,3 +599,193 @@ async function obterNomeAnimal(animalId) {
         return "Erro ao obter nome do animal";
     }
 }
+
+
+
+function editaranimal(){
+    window.location.href = "editarAnimal.html";
+}
+
+
+
+// Preenche dinamicamente o campo de seleção com os animais do usuário conectado
+function carregarAnimaisSelecionar() {
+    const selectAnimal = document.getElementById('nomeSelecionar');
+
+    // Verifica se há um usuário autenticado antes de prosseguir
+    const user = firebase.auth().currentUser;
+    if (!user) {
+        console.error("Nenhum usuário autenticado.");
+        return;
+    }
+
+    // Limpa quaisquer opções existentes
+    selectAnimal.innerHTML = "";
+
+    // Adiciona uma opção em branco
+    const optionEmBranco = document.createElement('option');
+    optionEmBranco.value = "";
+    optionEmBranco.textContent = "Selecione um animal";
+    selectAnimal.appendChild(optionEmBranco);
+
+    // Obtém o ID do usuário atualmente autenticado
+    const userId = user.uid;
+
+    // Consulta os animais na coleção 'animais' no Firebase Firestore filtrando pelo ID do usuário
+    db.collection('animais').where('userId', '==', userId).get()
+        .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+                // Adiciona cada animal do usuário como uma opção no campo de seleção
+                const optionAnimal = document.createElement('option');
+                optionAnimal.value = doc.id; // Use o ID do documento como valor
+                optionAnimal.textContent = doc.data().nome; // Nome do animal
+                selectAnimal.appendChild(optionAnimal);
+            });
+        })
+        .catch(error => {
+            console.error("Erro ao carregar animais:", error);
+        });
+
+    // Adiciona um listener de evento para mudanças na seleção do animal
+    selectAnimal.addEventListener('change', function() {
+        const animalId = selectAnimal.value;
+
+        if (animalId) {
+            // Se um animal foi selecionado, preenche os campos com seus atributos
+            db.collection('animais').doc(animalId).get()
+                .then(doc => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        document.getElementById('datanasc').value = data.datanasc || '';
+                        document.getElementById('especie').value = data.especie || '';
+                        document.getElementById('idade').value = data.idade || '';
+                        document.getElementById('sexo').value = data.sexo || '';
+                        document.getElementById('raca').value = data.raca || '';
+                        document.getElementById('porte').value = data.porte || '';
+                        document.getElementById('observacoes').value = data.observacoes || '';
+                    } else {
+                        console.error("Nenhum documento encontrado para o animal selecionado.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro ao buscar animal:", error);
+                });
+        } else {
+            // Se nenhum animal foi selecionado, limpa os campos
+            document.getElementById('datanasc').value = '';
+            document.getElementById('especie').value = '';
+            document.getElementById('idade').value = '';
+            document.getElementById('sexo').value = '';
+            document.getElementById('raca').value = '';
+            document.getElementById('porte').value = '';
+            document.getElementById('observacoes').value = '';
+        }
+    });
+}
+
+// Chama a função para carregar os animais apenas quando a página é carregada e é a página de edição de animais
+document.addEventListener('DOMContentLoaded', function() {
+    
+    firebase.auth().onAuthStateChanged(function(user) {
+        if(user){
+            console.log("Usuario ja autenticado:", user);
+            if (window.location.pathname.includes('login.html')) {
+                window.location.href = "./inicial.html";
+            }
+            if (window.location.pathname.includes('editarAnimal.html')) {
+            
+                carregarAnimaisSelecionar();
+            }
+        } else {
+                    
+            console.log("Nenhum usuário autenticado.");
+                    
+        }
+    });
+    
+});
+
+
+
+// Função para cancelar as alterações e redirecionar para a página inicial
+function cancelarEdicao() {
+    if (confirm("Tem certeza de que deseja cancelar as alterações?")) {
+        window.location.href = "inicial.html";
+    }
+}
+
+// Função para excluir o animal selecionado
+function apagarAnimal() {
+    const selectAnimal = document.getElementById('nomeSelecionar');
+    const animalId = selectAnimal.value;
+
+    if (!animalId) {
+        alert("Por favor, selecione um animal para excluir.");
+        return;
+    }
+
+    if (confirm("Tem certeza de que deseja excluir este animal?")) {
+        // Excluir o animal do banco de dados
+        db.collection('animais').doc(animalId).delete()
+            .then(() => {
+                alert("Animal excluído com sucesso.");
+                // Atualizar o campo de seleção após a exclusão
+                carregarAnimaisSelecionar();
+            })
+            .catch(error => {
+                console.error("Erro ao excluir animal:", error);
+                alert("Erro ao excluir o animal. Por favor, tente novamente mais tarde.");
+            });
+    }
+    limparCampos();
+}
+
+// Função para salvar as alterações no animal selecionado
+function salvarEdicao() {
+    const selectAnimal = document.getElementById('nomeSelecionar');
+    const animalId = selectAnimal.value;
+
+    if (!animalId) {
+        alert("Por favor, selecione um animal para salvar as alterações.");
+        return;
+    }
+
+    const datanasc = document.getElementById('datanasc').value;
+    const especie = document.getElementById('especie').value;
+    const idade = document.getElementById('idade').value;
+    const sexo = document.getElementById('sexo').value;
+    const raca = document.getElementById('raca').value; // Certifique-se de que o ID está correto
+    const porte = document.getElementById('porte').value;
+    const observacoes = document.getElementById('observacoes').value;
+
+    // Atualizar os dados do animal no banco de dados
+    db.collection('animais').doc(animalId).update({
+        datanasc: datanasc,
+        especie: especie,
+        idade: idade,
+        sexo: sexo,
+        raca: raca, // Certifique-se de que o nome do campo está correto
+        porte: porte,
+        observacoes: observacoes
+    })
+    .then(() => {
+        alert("Alterações salvas com sucesso.");
+        // Atualizar o campo de seleção após salvar as alterações
+        carregarAnimaisSelecionar();
+    })
+    .catch(error => {
+        console.error("Erro ao salvar as alterações:", error);
+        alert("Erro ao salvar as alterações. Por favor, tente novamente mais tarde.");
+    });
+    limparCampos();
+}
+function limparCampos() {
+    document.getElementById('nomeSelecionar').value = '';
+    document.getElementById('datanasc').value = '';
+    document.getElementById('especie').value = '';
+    document.getElementById('idade').value = '';
+    document.getElementById('sexo').value = '';
+    document.getElementById('raca').value = '';
+    document.getElementById('porte').value = '';
+    document.getElementById('observacoes').value = '';
+}

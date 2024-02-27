@@ -4,14 +4,14 @@ body {
 
 .container-esquerda {
     float: left;
-    width: 50%; /* Utilizando porcentagem para garantir que ocupe metade da largura da tela */
-    min-height: 100vh; /* Define a altura mínima como 100% da altura da viewport */
+    width: 50%; 
+    min-height: 100vh; 
     background-color: #68D8B0;
     color: #fff;
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    justify-content: center; /* Centraliza o conteúdo verticalmente */
+    justify-content: center; 
     flex-direction: column;
     padding: 20px;
 }

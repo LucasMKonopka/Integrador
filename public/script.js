@@ -9,23 +9,23 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-// Configurar a persistência de autenticação
+
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
     .then(() => {
-        // Autenticação persistente ativada
+        
         console.log("Autenticação persistente ativada.");
     })
     .catch((error) => {
         console.error("Erro ao configurar a persistência de autenticação:", error);
     });
 
-// Adicionar um listener para o evento "DOMContentLoaded" para garantir que o código seja executado após o carregamento da página
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Verificar se o usuário já está autenticado
+    
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             console.log("Usuário já autenticado:", user);
-            // Se o usuário já estiver autenticado, redirecione-o para a página inicial
+           
             if(window.location.href.includes('login.html')){
                 window.location.href = "./inicial.html";
             }
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Função para autenticar o usuário
+
 function login() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
@@ -65,8 +65,8 @@ function Sair() {
     firebase.auth().signOut()
         .then(() => {
             console.log("Usuário deslogado com sucesso.");
-            localStorage.removeItem('user'); // Remova as credenciais do usuário do localStorage
-            window.location.href = "login.html"; // Redirecione para a página de login
+            localStorage.removeItem('user'); 
+            window.location.href = "login.html"; 
         })
         .catch((error) => {
             console.error('Erro ao fazer logout:', error);
@@ -76,18 +76,17 @@ function Sair() {
 
 
 
-/* TESTE  */
-// Reference to the Firestore database
+
 const db = firebase.firestore();
 
-// Reference to the form
+
 const formCadastroAnimal = document.getElementById('formCadastroAnimal');
 
-// Event listener for the save button
+
 
 
 function salvarAnimal() {
-    // Gather form data
+    
     const nome = formCadastroAnimal.nome.value.trim();
     const datanasc = formCadastroAnimal.datanasc.value.trim();
     const especie = formCadastroAnimal.especie.value.trim();
@@ -97,13 +96,13 @@ function salvarAnimal() {
     const porte = formCadastroAnimal.porte.value.trim();
     const observacoes = formCadastroAnimal.observacoes.value.trim();
   
-    // Check if any field is empty
+    
     if (!nome || !datanasc || !especie || !idade || !sexo || !raca || !porte || !observacoes) {
       alert("Por favor, preencha todos os campos.");
       return;
     }
   
-    // Add the data to Firestore
+    
     const animalData = {
       nome: nome,
       datanasc: datanasc,
@@ -113,56 +112,56 @@ function salvarAnimal() {
       raca: raca,
       porte: porte,
       observacoes: observacoes,
-      userId: firebase.auth().currentUser.uid // Include the current user's ID
+      userId: firebase.auth().currentUser.uid 
     };
   
     db.collection('animais').add(animalData)
       .then(function(docRef) {
         console.log("Animal cadastrado com ID: ", docRef.id);
-        // Clear form
+        
         formCadastroAnimal.reset();
-        // Display success message
+       
         document.getElementById('mensagemCadastro').textContent = "Animal cadastrado com sucesso!";
-        // Redirect to initial page
+        
         setTimeout(() => {
           window.location.href = "inicial.html";
-        }, 1000); // Redirect after 1 second
+        }, 1000); 
       })
       .catch(function(error) {
         console.error("Erro ao cadastrar animal: ", error);
-        // Display error message
+        
         document.getElementById('mensagemCadastro').textContent = "Erro ao cadastrar animal. Por favor, tente novamente.";
       });
   }
   
 
 
-// Função para pesquisar animais
+
 function pesquisarAnimal() {
     var termoPesquisa = document.getElementById('pesquisaAnimal').value.toLowerCase();
 
-    // Filtra a lista de animais com base no termo de pesquisa
+    
     var animaisFiltrados = listaAnimais.filter(function(animal) {
         return animal.nome.toLowerCase().includes(termoPesquisa);
     });
 
-    // Exiba a lista de animais filtrados no console
+    
     console.log(animaisFiltrados);
 
-    // Verifique se algum animal foi encontrado
+    
     if (animaisFiltrados.length > 0) {
-        // Animal encontrado, você pode adicionar lógica adicional aqui
+        
         console.log('Animal encontrado:', animaisFiltrados[0]);
     } else {
-        // Nenhum animal encontrado, exiba uma mensagem
+        
         console.log('Animal não encontrado. Crie um novo cadastro ou verifique o nome inserido.');
-        // Ou exiba uma mensagem na página para o usuário
+       
         document.getElementById('mensagemCadastro').innerText = 'Animal não encontrado. Crie um novo cadastro ou verifique o nome inserido.';
     }
 }
 
 
-// Função para limpar o formulário após cadastrar um animal
+
 function limparFormulario() {
     document.getElementById('nome').value = '';
     document.getElementById('especie').value = '';
@@ -172,22 +171,8 @@ function limparFormulario() {
     document.getElementById('datanasc').value = '';
     document.getElementById('sexo').value = '';
 }
-/*
-// Função para pesquisar animais
-function pesquisarAnimal() {
-    var termoPesquisa = document.getElementById('pesquisaAnimal').value.toLowerCase();
 
-    // Filtra a lista de animais com base no termo de pesquisa
-    var animaisFiltrados = listaAnimais.filter(function(animal) {
-        return animal.nome.toLowerCase().includes(termoPesquisa);
-    });
-
-    // Exiba a lista de animais filtrados no console
-    console.log(animaisFiltrados);
-}
-*/
-
-    
+   
 
 function novaficha(){
     window.location.href = "novaficha.html";
@@ -209,26 +194,26 @@ function cancelarCadastro() {
         window.location.href = "inicial.html";
     } 
 }
-/* ----------------------------------------------------------------------------------------------------------------- */
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Verificar se o usuário já está autenticado
+    
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             console.log("Usuário já autenticado:", user);
-            // Se o usuário já estiver autenticado, redirecione-o para a página inicial
+            
             if(window.location.href.includes('login.html')){
                 window.location.href = "./inicial.html";
             }
-            // Verifica se a página atual possui o campo de seleção de animais
+            
             if (window.location.href.includes('novaficha.html')) {
-                carregarAnimais(); // Chama a função para carregar os animais apenas se estiver na página 'novaficha.html'
+                carregarAnimais(); 
             }
         } else {
             console.log("Usuário não autenticado.");
         }
     });
 });
-// Preenche dinamicamente o campo de seleção com os animais disponíveis
+
 function carregarAnimais() {
     const selectAnimal = document.getElementById('animal');
     
@@ -236,24 +221,24 @@ function carregarAnimais() {
         console.error("Elemento 'animal' não encontrado na página. Esta pagina não requer o carregamento de animais.");
         return;
     }
-    // Limpa quaisquer opções existentes
+    
     selectAnimal.innerHTML = "";
 
-    // Adiciona uma opção em branco
+    
     const optionEmBranco = document.createElement('option');
     optionEmBranco.value = "";
     optionEmBranco.textContent = "Selecione um animal";
     selectAnimal.appendChild(optionEmBranco);
 
-    // Busca os animais na coleção 'animais' pertencentes ao usuário atualmente autenticado
+    
     const userId = firebase.auth().currentUser.uid;
     db.collection('animais').where('userId', '==', userId).get()
         .then(querySnapshot => {
             querySnapshot.forEach(doc => {
-                // Adiciona cada animal como uma opção no campo de seleção
+                
                 const optionAnimal = document.createElement('option');
-                optionAnimal.value = doc.id; // Use o ID do documento como valor
-                optionAnimal.textContent = doc.data().nome; // Nome do animal
+                optionAnimal.value = doc.id; 
+                optionAnimal.textContent = doc.data().nome; 
                 selectAnimal.appendChild(optionAnimal);
             });
         })
@@ -262,10 +247,8 @@ function carregarAnimais() {
         });
 }
 
-// Chama a função para carregar os animais quando a página é carregada
 
 
-/*----------------------------------------------------------------------------------------------------------------------- */
 
 function salvarFicha() {
     const animalId = document.getElementById('animal').value;
@@ -273,7 +256,7 @@ function salvarFicha() {
     const dataAtendimento = document.getElementById('dataAtendimento').value;
     const procedimento = document.getElementById('atendimento').value;
 
-    // Verificar se todos os campos estão preenchidos
+    
     if (!animalId || !nomeVeterinario || !dataAtendimento || !procedimento) {
         alert("Por favor, preencha todos os campos.");
         return;
@@ -287,18 +270,18 @@ function salvarFicha() {
         procedimento: procedimento
     };
 
-    // Salvar a ficha de atendimento
+    
     db.collection('fichas').add(fichaAtendimentoData)
         .then(function(docRef) {
             console.log("Ficha de atendimento cadastrada com ID: ", docRef.id);
-            // Limpar formulário
+            
             document.getElementById('formNovaFicha').reset();
-            // Exibir mensagem de sucesso
+            
             var mensagemFicha = document.getElementById('mensagemFicha');
             if (mensagemFicha) {
                 mensagemFicha.textContent = "Ficha de atendimento cadastrada com sucesso!";
             }
-            // Redirecionar para a página inicial após 1 segundo
+            
             setTimeout(() => {
                 window.location.href = "inicial.html";
             }, 1000);
@@ -354,9 +337,9 @@ function RedefinirSenha(){
 var registerForm = document.getElementById('register-form');
 if (registerForm) {
     registerForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // Previne o envio padrão do formulário
+        event.preventDefault(); 
         
-        // Chama a função de validação do formulário
+        
         validateForm();
     });
 } else {
@@ -392,7 +375,7 @@ function register() {
     firebase.auth().createUserWithEmailAndPassword(
         email, password
     ).then(() => {
-        window.location.href = "login.html"; // Redireciona para a página de login após o registro bem-sucedido
+        window.location.href = "login.html"; 
     }).catch(error => {
         alert(getErrorMessage(error));
     })
@@ -407,20 +390,20 @@ function getErrorMessage(error) {
 
 
 
-// Função para buscar animais do usuário atual
+
 function buscarAnimaisDoUsuario() {
-    // Obter o ID do usuário atual
+    
     const userId = firebase.auth().currentUser.uid;
 
-    // Referência para a coleção de animais do usuário atual
+    
     const animaisRef = firebase.firestore().collection('animais').where('userId', '==', userId);
 
-    // Realizar a consulta
+    
     animaisRef.get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-            // doc.data() é um objeto que contém os dados do animal
+            
             const animal = doc.data();
-            // Faça o que você precisa com os dados do animal
+            
             console.log('Animal encontrado:', animal);
         });
     }).catch((error) => {
@@ -428,37 +411,36 @@ function buscarAnimaisDoUsuario() {
     });
 }
 
-// Função para exibir os animais do usuário conectado
+
 function exibirAnimaisDoUsuario() {
-    // Verificar se há um usuário autenticado
+    
     const user = firebase.auth().currentUser;
     if (user) {
-        // Obter o ID do usuário atual
+        
         const userId = user.uid;
 
-        // Referência para a coleção de animais do usuário atual
         const animaisRef = firebase.firestore().collection('animais').where('userId', '==', userId);
 
-        // Limpar o conteúdo anterior
+        
         document.getElementById('animais').innerHTML = '';
 
-        // Realizar a consulta
+        
         animaisRef.get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-                // Obter os dados do animal
+                
                 const animal = doc.data();
                 
-                // Criar um botão para o animal
+                
                 const button = document.createElement('button');
                 button.classList.add('animal-button');
                 button.textContent = `${animal.nome} - ${animal.raca} - ${animal.especie} - ${animal.idade}`;
                 
-                // Adicionar um evento de clique para exibir detalhes do animal (opcional)
+                
                 button.addEventListener('click', () => {
                     alert(`Detalhes do animal:\nNome: ${animal.nome}\nRaça: ${animal.raca}\nEspécie: ${animal.especie}\nIdade: ${animal.idade}`);
                 });
                 
-                // Adicionar o botão ao contêiner de animais
+                
                 document.getElementById('animais').appendChild(button);
             });
         }).catch((error) => {
@@ -469,12 +451,11 @@ function exibirAnimaisDoUsuario() {
     }
 }
 
-// Adicionar um listener para o evento "DOMContentLoaded" para garantir que o código seja executado após o carregamento da página
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Chamar a função para exibir os animais do usuário
     exibirAnimaisDoUsuario();
     
-    // Restante do seu código...
+    
 });
 
 
@@ -488,17 +469,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Verificar se o usuário já está autenticado
+   
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             console.log("Usuário já autenticado:", user);
-            // Se o usuário já estiver autenticado, redirecione-o para a página inicial
+            
             if (window.location.href.includes('login.html')) {
                 window.location.href = "./inicial.html";
             }
-            // Verifica se a página atual possui o campo de seleção de animais
+            
             if (window.location.href.includes('buscarficha.html')) {
-                // Chama a função para carregar os animais apenas se estiver na página 'buscarficha.html'
+               
                 carregarAnimaisBuscar();
             }
         } else {
@@ -506,27 +487,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-// Preenche dinamicamente a barra de pesquisa com os animais do usuário conectado
+
 function carregarAnimaisBuscar() {
-    // Busca os animais na coleção 'animais' pertencentes ao usuário atualmente autenticado
+    
     const userId = firebase.auth().currentUser.uid;
     const selectAnimal = document.getElementById('selectAnimalBuscar');
-    selectAnimal.innerHTML = ""; // Limpa quaisquer opções existentes
+    selectAnimal.innerHTML = ""; 
 
-    // Adiciona uma opção em branco
+    
     const optionEmBranco = document.createElement('option');
     optionEmBranco.value = "";
     optionEmBranco.textContent = "Selecione um animal";
     selectAnimal.appendChild(optionEmBranco);
 
-    // Consulta os animais pertencentes ao usuário
+    
     db.collection('animais').where('userId', '==', userId).get()
         .then(querySnapshot => {
             querySnapshot.forEach(doc => {
-                // Adiciona cada animal como uma opção na barra de pesquisa
+                
                 const optionAnimal = document.createElement('option');
-                optionAnimal.value = doc.id; // Use o ID do documento como valor
-                optionAnimal.textContent = doc.data().nome; // Nome do animal
+                optionAnimal.value = doc.id; 
+                optionAnimal.textContent = doc.data().nome; 
                 selectAnimal.appendChild(optionAnimal);
             });
         })
@@ -534,39 +515,39 @@ function carregarAnimaisBuscar() {
             console.error("Erro ao carregar animais:", error);
         });
 }
-// Função para buscar fichas de atendimento para o animal selecionado
+
 function buscarFichasDoAnimal() {
-    // Obtém o ID do animal selecionado
+    
     const animalId = document.getElementById('selectAnimalBuscar').value;
 
-    // Verifica se um animal foi selecionado
+    
     if (!animalId) {
         console.error("Nenhum animal selecionado.");
         return;
     }
 
-    // Referência à lista de fichas de atendimento na página HTML
+    
     const fichasDeAtendimentoList = document.getElementById('fichasDeAtendimento');
     
-    // Limpa quaisquer fichas de atendimento exibidas anteriormente
+    
     fichasDeAtendimentoList.innerHTML = "";
 
-    // Consulta as fichas de atendimento para o animal selecionado na coleção 'fichas'
+    
     db.collection('fichas').where('animalId', '==', animalId).get()
         .then(querySnapshot => {
             if (querySnapshot.empty) {
-                // Se não houver fichas de atendimento para o animal selecionado, exibe uma mensagem
+                
                 const noFichasMessage = document.createElement('tr');
                 const noFichasDataCell = document.createElement('td');
-                noFichasDataCell.colSpan = 4; // Colspan para ocupar todas as colunas
+                noFichasDataCell.colSpan = 4; 
                 noFichasDataCell.textContent = "Nenhuma ficha de atendimento encontrada para este animal.";
                 noFichasMessage.appendChild(noFichasDataCell);
                 fichasDeAtendimentoList.appendChild(noFichasMessage);
             } else {
-                // Para cada ficha de atendimento encontrada, exibe a data, o nome do animal, veterinário e procedimento
+                
                 querySnapshot.forEach(async doc => {
                     const ficha = doc.data();
-                    // Obter o nome do animal associado ao ID do animal na ficha de atendimento
+                    
                     const nomeAnimal = await obterNomeAnimal(ficha.animalId);
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
@@ -584,7 +565,7 @@ function buscarFichasDoAnimal() {
         });
 }
 
-// Função para obter o nome do animal associado ao ID do animal
+
 async function obterNomeAnimal(animalId) {
     try {
         const animalDoc = await db.collection('animais').doc(animalId).get();
@@ -608,37 +589,37 @@ function editaranimal(){
 
 
 
-// Preenche dinamicamente o campo de seleção com os animais do usuário conectado
+
 function carregarAnimaisSelecionar() {
     const selectAnimal = document.getElementById('nomeSelecionar');
 
-    // Verifica se há um usuário autenticado antes de prosseguir
+    
     const user = firebase.auth().currentUser;
     if (!user) {
         console.error("Nenhum usuário autenticado.");
         return;
     }
 
-    // Limpa quaisquer opções existentes
+    
     selectAnimal.innerHTML = "";
 
-    // Adiciona uma opção em branco
+    
     const optionEmBranco = document.createElement('option');
     optionEmBranco.value = "";
     optionEmBranco.textContent = "Selecione um animal";
     selectAnimal.appendChild(optionEmBranco);
 
-    // Obtém o ID do usuário atualmente autenticado
+    
     const userId = user.uid;
 
-    // Consulta os animais na coleção 'animais' no Firebase Firestore filtrando pelo ID do usuário
+    
     db.collection('animais').where('userId', '==', userId).get()
         .then(querySnapshot => {
             querySnapshot.forEach(doc => {
-                // Adiciona cada animal do usuário como uma opção no campo de seleção
+                
                 const optionAnimal = document.createElement('option');
-                optionAnimal.value = doc.id; // Use o ID do documento como valor
-                optionAnimal.textContent = doc.data().nome; // Nome do animal
+                optionAnimal.value = doc.id;
+                optionAnimal.textContent = doc.data().nome; 
                 selectAnimal.appendChild(optionAnimal);
             });
         })
@@ -646,12 +627,12 @@ function carregarAnimaisSelecionar() {
             console.error("Erro ao carregar animais:", error);
         });
 
-    // Adiciona um listener de evento para mudanças na seleção do animal
+    
     selectAnimal.addEventListener('change', function() {
         const animalId = selectAnimal.value;
 
         if (animalId) {
-            // Se um animal foi selecionado, preenche os campos com seus atributos
+            
             db.collection('animais').doc(animalId).get()
                 .then(doc => {
                     if (doc.exists) {
@@ -672,7 +653,7 @@ function carregarAnimaisSelecionar() {
                     console.error("Erro ao buscar animal:", error);
                 });
         } else {
-            // Se nenhum animal foi selecionado, limpa os campos
+            
             document.getElementById('nome').value = '';
             document.getElementById('datanasc').value = '';
             document.getElementById('especie').value = '';
@@ -685,7 +666,7 @@ function carregarAnimaisSelecionar() {
     });
 }
 
-// Chama a função para carregar os animais apenas quando a página é carregada e é a página de edição de animais
+
 document.addEventListener('DOMContentLoaded', function() {
     
     firebase.auth().onAuthStateChanged(function(user) {
@@ -709,14 +690,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-// Função para cancelar as alterações e redirecionar para a página inicial
+
 function cancelarEdicao() {
     if (confirm("Tem certeza de que deseja cancelar as alterações?")) {
         window.location.href = "inicial.html";
     }
 }
 
-// Função para excluir o animal selecionado
+
 function apagarAnimal() {
     const selectAnimal = document.getElementById('nomeSelecionar');
     const animalId = selectAnimal.value;
@@ -727,11 +708,11 @@ function apagarAnimal() {
     }
 
     if (confirm("Tem certeza de que deseja excluir este animal?")) {
-        // Excluir o animal do banco de dados
+        
         db.collection('animais').doc(animalId).delete()
             .then(() => {
                 alert("Animal excluído com sucesso.");
-                // Atualizar o campo de seleção após a exclusão
+                
                 carregarAnimaisSelecionar();
             })
             .catch(error => {
@@ -742,7 +723,7 @@ function apagarAnimal() {
     limparCampos();
 }
 
-// Função para salvar as alterações no animal selecionado
+
 function salvarEdicao() {
     const selectAnimal = document.getElementById('nomeSelecionar');
     const animalId = selectAnimal.value;
@@ -752,7 +733,7 @@ function salvarEdicao() {
         return;
     }
 
-    const novoNome = document.getElementById('novoNome').value; // Novo campo para o nome do animal
+    const novoNome = document.getElementById('novoNome').value;
 
     const datanasc = document.getElementById('datanasc').value;
     const especie = document.getElementById('especie').value;
@@ -762,9 +743,9 @@ function salvarEdicao() {
     const porte = document.getElementById('porte').value;
     const observacoes = document.getElementById('observacoes').value;
 
-    // Atualizar os dados do animal no banco de dados, incluindo o novo nome
+   
     db.collection('animais').doc(animalId).update({
-        nome: novoNome, // Atualizando o nome do animal
+        nome: novoNome, 
         datanasc: datanasc,
         especie: especie,
         idade: idade,
@@ -775,9 +756,9 @@ function salvarEdicao() {
     })
     .then(() => {
         alert("Alterações salvas com sucesso.");
-        // Limpar os campos após salvar as alterações
+        
         limparCampos();
-        // Atualizar o campo de seleção após salvar as alterações
+        
         carregarAnimaisSelecionar();
     })
     .catch(error => {

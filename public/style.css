@@ -82,7 +82,7 @@ input {
     margin-bottom: 10px;
 }
 
-/* Estilizando para telas pequenas (responsividade) */
+
 @media (max-width: 600px) {
     form {
         width: 100%;
@@ -126,7 +126,7 @@ button#salvar {
 }
 #animal {
     width: 100%;
-    padding: 10px; /* Ajuste o padding conforme necessário */
+    padding: 10px; 
     box-sizing: border-box;
     margin-bottom: 10px;
 }
@@ -332,7 +332,7 @@ button#chat{
 }
 
 @media (max-width: 500px) {
-    /* Adapte conforme necessário para telas pequenas */
+    
     #container-rodape {
         flex-direction: column;
         align-items: flex-start;
@@ -348,38 +348,38 @@ button#chat{
 
 
 
-/* Estiliza o campo de seleção para se parecer com uma barra de pesquisa */
+
 #selectAnimalBuscar {
-    -webkit-appearance: none; /* Remove a aparência padrão do campo de seleção no Chrome e Safari */
-    -moz-appearance: none; /* Remove a aparência padrão do campo de seleção no Firefox */
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
     appearance: none;
-    background-color: white; /* Cor de fundo */
-    border: 1px solid #ccc; /* Borda */
-    padding: 8px; /* Espaçamento interno */
-    font-size: 16px; /* Tamanho da fonte */
-    width: 80%; /* Largura */
+    background-color: white; 
+    border: 1px solid #ccc; 
+    padding: 8px;
+    font-size: 16px; 
+    width: 80%; 
 }
 
-/* Adiciona uma seta personalizada para o campo de seleção */
+
 #selectAnimalBuscar::after {
-    content: '\25BC'; /* Código Unicode para uma seta para baixo */
+    content: '\25BC'; 
     position: absolute;
     top: 50%;
     right: 10px;
     transform: translateY(-50%);
-    pointer-events: none; /* Impede que a seta seja clicada */
+    pointer-events: none; 
 }
 
 #btnBuscarFichas{
-    height: 60px; /* Ajuste conforme necessário para corresponder à altura da barra de seleção de animais */
-    margin-top: 8px; /* Ajuste o espaçamento superior conforme necessário */
+    height: 60px; 
+    margin-top: 8px; 
     margin-left: 10px;
 }
 
 #fichasDeAtendimento li {
-    font-size: 18px; /* Ajuste conforme desejado */
-    line-height: 1.5; /* Adiciona espaçamento entre as linhas */
-    margin-bottom: 20px; /* Adiciona espaçamento inferior entre as mensagens das fichas */
+    font-size: 18px; 
+    line-height: 1.5; 
+    margin-bottom: 20px; 
 }
 
 #tabela-fichas {
@@ -411,7 +411,7 @@ button#chat{
     background-color: #ddd;
 }
 
-/* Estilizando para telas pequenas (responsividade) */
+
 @media (max-width: 600px) {
     #tabela-fichas {
         width: 100%;
@@ -420,7 +420,7 @@ button#chat{
 
 
 
-/* Estilo para o botão Salvar */
+
 button{
     padding: 10px;
     margin-right: 10px;
@@ -453,13 +453,13 @@ button#salvarAlteracoes {
     background: #68D8B0;
     color: black;
 }
-/* Estilos para o campo de seleção de animais */
+
 #nomeSelecionar {
-    width: 100%; /* Defina a largura para 100% para ocupar todo o espaço disponível */
-    padding: 8px; /* Ajuste o padding conforme necessário */
-    font-size: 16px; /* Ajuste o tamanho da fonte conforme necessário */
-    box-sizing: border-box; /* Adicione uma borda para ficar consistente com os inputs */
-    border-radius: 5px; /* Adicione borda arredondada */
-    box-sizing: border-box; /* Inclua o padding e a borda na largura total */
-    margin-bottom: 10px; /* Adicione margem inferior para separação dos elementos */
+    width: 100%; 
+    padding: 8px;
+    font-size: 16px; 
+    box-sizing: border-box; 
+    border-radius: 5px; 
+    box-sizing: border-box; 
+    margin-bottom: 10px;
 }
